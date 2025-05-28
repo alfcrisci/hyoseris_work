@@ -1,2 +1,4 @@
 # hyoseris_work
-Data &amp; Code repository del lavoro della Dott. Steafania 
+Code repository del lavoro della Dott. Stefania Truschi UNIFI.
+
+I dati e il codice sono sotto licenza aperta.
