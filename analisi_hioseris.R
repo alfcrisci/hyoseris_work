@@ -3,18 +3,16 @@
 
 # setwd("")
 
-setwd("C:\\aaa_lavori\\lav_truschi_salade")
-
 set.seed(123)
 
 ##########################################################################################################
 # Load R packages
 
-
+# check if all libraries are installed
 source("aux_libraries.R")
 library(emmeans)
 library(corrplot)
-library(MKinfer) #https://github.com/stamats/MKinfer
+library(MKinfer) # https://github.com/stamats/MKinfer
 
 cat("\014") 
 
@@ -69,13 +67,11 @@ ggplot(aes(y = harvest, x = treatment, fill = stage), data = dati_rese) + geom_b
 ggsave("rese_boxplot.png")
 
 cat("\014") 
+
 ##########################################################################
 # Creazione delle matrici di analisi per PCA
 
 dati_parameters=dati_hioseris$dati_parameters
-
-
-
 
 #########################################################################################
 # Parameters: PCA explore parameters and outlier detection
@@ -147,6 +143,7 @@ cat("\014")
 
 
 #########################################################################################
+# Preparazione dati chimici
 
 X=dati_chemicals[,4:34]
 
@@ -194,13 +191,15 @@ cat("\014")
 
 X=X$vitB6=NULL
 
-names(X)[which(col_oneway_welch(X, Y)$pvalue<0.05)]
+names(X)[which(col_oneway_welch(X, Y)$pvalue<0.05)] # quelli che danno diffrenze significative
+
 
 # [1] "hr"       "phenols"  "prot"     "nitritis" "chl_a"    "chl_b"    "chl_tot" 
 # [8] "crom"     "mn"       "copper"   "arsenic"  "cadmium"  "sb"       "vitC"    
 # [15] "vitb3"    "vitb1"  
 
 ########################################################################################
+# confronti paired tra le due tesi stage e terreno per veder qualis sono quelle che generano differenze
 
 ls_res_paired_chem=list()
 
@@ -211,8 +210,7 @@ for ( i in 1:ncol(X)) {
 names(ls_res_paired_chem)=names(X)
 
 ########################################################################################
-# correlation analisys
-
+# Analisi di correlazione
 
 X_chem<-split(X, Y)
 
